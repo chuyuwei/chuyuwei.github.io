@@ -5,16 +5,18 @@
   
   <title>第二章 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。">
+  <meta name="description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第二章">
 <meta property="og:url" content="http://yoursite.com/2017/08/29/第二章/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。">
-<meta property="og:updated_time" content="2017-08-29T12:47:50.359Z">
+<meta property="og:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
+<meta property="og:image" content="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true">
+<meta property="og:updated_time" content="2017-08-30T05:33:33.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第二章">
-<meta name="twitter:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。">
+<meta name="twitter:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
+<meta name="twitter:image" content="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,7 +88,104 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="状态管理和绘制几何物体"><a href="#状态管理和绘制几何物体" class="headerlink" title="状态管理和绘制几何物体"></a>状态管理和绘制几何物体</h1><p><strong>引言</strong>：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。</p>
+<p>本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是        </p>
+<pre><code>glLineStipple(1,0x3F07);        
+glEnable(GL_LINE_STIPPLE);
+</code></pre><p>其中0x3F07是十六进制表示，二进制下是001111100000111，表示，从有右到左表示先绘制三个像素，在连续五个像素留空，在绘制6个像素，最后两个像素留空。<br>如下图实例程序结果<br><img src="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true" alt=""><br>源码如下        </p>
+<pre><code>#include &lt;glut.h&gt;
+#define drawOneLine(x1,y1,x2,y2) glBegin(GL_LINES);\
+glVertex2f((x1),(y1)); glVertex2f((x2), (y2)); glEnd();
 
+void init(void){
+    //设置清除颜色为黑色
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    //着色模式，使用图元中某个个顶点颜色渲染整个图元
+    glShadeModel(GL_FLAT);
+}
+
+void display(void)
+{
+    int i;
+    //清除整个窗口为当前颜色
+    glClear(GL_COLOR_BUFFER_BIT);
+    //设置绘制颜色为白色
+    glColor3f(1.0, 1.0, 1.0);
+    //启用直线点画模式
+    glEnable(GL_LINE_STIPPLE);
+
+    //定义点画模式，当前模式是
+    glLineStipple(1, 0x0101);
+    drawOneLine(50, 125, 150, 125);
+    glLineStipple(1, 0x00FF);
+    drawOneLine(150, 125, 250, 125);
+    glLineStipple(1, 0x1C47);
+    drawOneLine(250, 125, 350, 125);
+
+    //与上面不同的是设置了宽度
+    glLineWidth(5.0);
+    glLineStipple(1, 0x0101);
+    drawOneLine(50, 100, 150, 100);
+    glLineStipple(1, 0x00FF);
+    drawOneLine(150, 100, 250, 100);
+    glLineStipple(1, 0x1C47);
+    drawOneLine(250, 100.0, 350, 100);
+
+    glLineStipple(1, 0x1C47);
+    glBegin(GL_LINE_STRIP);
+    for ( i = 0; i &lt; 7; i++)
+        glVertex2f(50.0 + ((GLfloat)i * 50), 75.0);
+    glEnd();
+
+    for ( i = 0; i &lt; 6; i++)
+    {
+        drawOneLine(50.0 + ((GLfloat)i * 50), 50.0,
+            50.0 + ((GLfloat)(i + 1)*50.0), 50.0);
+    }
+
+    glLineStipple(5, 0x1C47);
+    drawOneLine(50.0, 25.0, 350.0, 25.0);
+
+    //关闭点画模式
+    glDisable(GL_LINE_STIPPLE);
+    //强制以前的opengl命令开始执行
+    glFlush();
+}
+
+//w和h表示新的窗口的大小
+void reshape(int w, int h)
+{
+    //占据整个新的窗口
+    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    //对投影矩阵应用随后的矩阵操作
+    glMatrixMode(GL_PROJECTION);
+    //将当前坐标系原点移动到屏幕中间
+    glLoadIdentity();
+    //位于左下角坐标是0，0，右上角坐标是w,h
+    gluOrtho2D(0.0, (GLdouble)w, 0.0, (GLdouble)h);
+}
+int main(int argc, char** argv)
+{
+    //对GLUT初始化
+    glutInit(&amp;argc,argv);
+    //指定颜色模式
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    //指定窗口左上角位置
+    glutInitWindowSize(400, 150);
+    //指定窗口的大小
+    glutInitWindowPosition(100, 100);
+    //创建窗口
+    glutCreateWindow(argv[0]);
+    //初始化RGBA模式窗口黑色
+    init();
+    //调用绘制函数
+    glutDisplayFunc(display);
+    //窗口大小改变的回调函数
+    glutReshapeFunc(reshape);
+    //循环调用
+    glutMainLoop();
+    return 0;
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
