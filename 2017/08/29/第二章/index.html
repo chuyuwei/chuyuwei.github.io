@@ -5,17 +5,18 @@
   
   <title>第二章 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
+  <meta name="description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 glLineStipple 点画线本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第二章">
 <meta property="og:url" content="http://yoursite.com/2017/08/29/第二章/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
+<meta property="og:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 glLineStipple 点画线本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3">
 <meta property="og:image" content="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true">
-<meta property="og:updated_time" content="2017-08-30T05:33:33.650Z">
+<meta property="og:image" content="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/polys1.PNG?raw=true">
+<meta property="og:updated_time" content="2017-09-01T12:52:17.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第二章">
-<meta name="twitter:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3F07是十六进制表示，二进制下是0">
+<meta name="twitter:description" content="状态管理和绘制几何物体引言：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。 glLineStipple 点画线本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是         glLineStipple(1,0x3F07);         glEnable(GL_LINE_STIPPLE); 其中0x3">
 <meta name="twitter:image" content="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -88,7 +89,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="状态管理和绘制几何物体"><a href="#状态管理和绘制几何物体" class="headerlink" title="状态管理和绘制几何物体"></a>状态管理和绘制几何物体</h1><p><strong>引言</strong>：为了充分了解《OpenGL编程指南》这本书，同时也是作为日记的存在，笔者特意开次博客，希望笔者的阅读记录能够为大家也有所帮助。</p>
-<p>本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是        </p>
+<h2 id="glLineStipple-点画线"><a href="#glLineStipple-点画线" class="headerlink" title="glLineStipple 点画线"></a>glLineStipple 点画线</h2><p>本章有一个比较少用的OpenGL的绘制函数是点画线模式，具体是        </p>
 <pre><code>glLineStipple(1,0x3F07);        
 glEnable(GL_LINE_STIPPLE);
 </code></pre><p>其中0x3F07是十六进制表示，二进制下是001111100000111，表示，从有右到左表示先绘制三个像素，在连续五个像素留空，在绘制6个像素，最后两个像素留空。<br>如下图实例程序结果<br><img src="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/lines.png?raw=true" alt=""><br>源码如下        </p>
@@ -184,8 +185,61 @@ int main(int argc, char** argv)
     //循环调用
     glutMainLoop();
     return 0;
-}
-</code></pre>
+}  
+</code></pre><h2 id="glPolygonStipple-点画多边形"><a href="#glPolygonStipple-点画多边形" class="headerlink" title="glPolygonStipple  点画多边形"></a>glPolygonStipple  点画多边形</h2><p>点画多边形和上面的点画直线一样，非常少用，接触图形学两年以来从来没有实际使用过，红宝书中这段代码比较费解，如果楼主换个方式可能就比较容易理解。首先解释一下默认情况下，填充多边形都是用实心的方式，此外可以使用一种32*32的方式来填充，如果是1则绘制，如果是0不绘制，书中代码是这样子的     </p>
+<pre><code> GLubyte fly[] = {           
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,                     
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,         
+0x00, 0x01, 0xF8, 0x00, 0x00, 0x02, 0x40, 0x00,   
+0x00, 0x04, 0x02, 0x00, 0x00, 0x02, 0x02, 0x00,  
+0x00, 0x01, 0x00, 0x80, 0x06, 0x00, 0x80, 0x80,   
+0x05, 0x00, 0x40, 0x40, 0x04, 0x80, 0x10, 0x40,   
+0x04, 0x80, 0x20, 0x40, 0x04, 0x41, 0xFF, 0x00,  
+0x04, 0x41, 0x81, 0x80, 0x04, 0x21, 0xD0, 0x30,   
+0x02, 0x21, 0xE0, 0x60, 0x02, 0x20, 0x18, 0x18,   
+0x02, 0x10, 0x04, 0x00, 0x02, 0x08, 0x02, 0x00,  
+0x02, 0x10, 0x03, 0x00, 0x02, 0x04, 0x01, 0x00,   
+0x02, 0x04, 0x01, 0x80, 0x8C, 0x02, 0x00, 0x10,   
+0x18, 0x01, 0x01, 0x80, 0x10, 0x01, 0x01, 0x00,  
+0x00, 0x00, 0x90, 0x00, 0x00, 0x00, 0x78, 0x00,   
+0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00,   
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+</code></pre><p>书中说对应图片如下<br><img src="https://github.com/chuyuwei/myblogphoto/blob/master/raw/second/polys1.PNG?raw=true" alt=""><br>这是一个32<em>32的表格，按照上面的fly这是一个16</em>64的的表格，所以应该写作一下的方式  </p>
+<pre><code>GLubyte fly[] = {           
+0x00, 0x00, 0x00, 0x00,  
+0x00, 0x00, 0x00, 0x00,                     
+0x00, 0x00, 0x00, 0x00,  
+0x00, 0x00, 0x00, 0x00,         
+0x00, 0x01, 0xF8, 0x00,   
+0x00, 0x02, 0x40, 0x00,   
+0x00, 0x04, 0x02, 0x00,
+0x00, 0x02, 0x02, 0x00,  
+0x00, 0x01, 0x00, 0x80, 
+0x06, 0x00, 0x80, 0x80,   
+0x05, 0x00, 0x40, 0x40,
+0x04, 0x80, 0x10, 0x40,   
+0x04, 0x80, 0x20, 0x40,
+0x04, 0x41, 0xFF, 0x00,  
+0x04, 0x41, 0x81, 0x80,
+0x04, 0x21, 0xD0, 0x30,   
+0x02, 0x21, 0xE0, 0x60,
+0x02, 0x20, 0x18, 0x18,   
+0x02, 0x10, 0x04, 0x00,
+0x02, 0x08, 0x02, 0x00,  
+0x02, 0x10, 0x03, 0x00,
+0x02, 0x04, 0x01, 0x00,   
+0x02, 0x04, 0x01, 0x80,
+0x8C, 0x02, 0x00, 0x10,   
+0x18, 0x01, 0x01, 0x80,
+0x10, 0x01, 0x01, 0x00,  
+0x00, 0x00, 0x90, 0x00,
+0x00, 0x00, 0x78, 0x00,   
+0x00, 0x00, 0x10, 0x00,
+0x00, 0x00, 0x00, 0x00,   
+0x00, 0x00, 0x00, 0x00, 
+0x00, 0x00, 0x00, 0x00};  
+</code></pre><p>这样才对应了32*32，并且绘制方式是从左下角开始，0x00表示00000000，所以最后一行前八格是空。<br>如下图实例程序结果图<br>源码</p>
+
       
     </div>
     <footer class="article-footer">
