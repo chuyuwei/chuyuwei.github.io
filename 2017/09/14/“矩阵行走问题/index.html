@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hash查找和直接遍历查找的对比 | Hexo</title>
+  <title>“矩阵行走问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Hash查找和直接遍历查找的对比">
-<meta property="og:url" content="http://yoursite.com/2017/09/12/Hash查找和直接遍历查找的对比/index.html">
+  <meta name="description" content="矩阵行走问题的几种处理 #（随时更新）在做leetcode的时候发现经常会涉及到矩阵的运算，通常处理的对象是这样的   vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; object;   在处理矩阵问题的时候，通常需要遍历周围一圈，分别是   object[i-1][j-1]; object[i-1][j]; object[i][j-1]; object[i+1][j+1]; ob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“矩阵行走问题">
+<meta property="og:url" content="http://yoursite.com/2017/09/14/“矩阵行走问题/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:updated_time" content="2017-09-12T03:02:59.017Z">
+<meta property="og:description" content="矩阵行走问题的几种处理 #（随时更新）在做leetcode的时候发现经常会涉及到矩阵的运算，通常处理的对象是这样的   vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; object;   在处理矩阵问题的时候，通常需要遍历周围一圈，分别是   object[i-1][j-1]; object[i-1][j]; object[i][j-1]; object[i+1][j+1]; ob">
+<meta property="og:updated_time" content="2017-09-14T13:08:12.097Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hash查找和直接遍历查找的对比">
+<meta name="twitter:title" content="“矩阵行走问题">
+<meta name="twitter:description" content="矩阵行走问题的几种处理 #（随时更新）在做leetcode的时候发现经常会涉及到矩阵的运算，通常处理的对象是这样的   vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; object;   在处理矩阵问题的时候，通常需要遍历周围一圈，分别是   object[i-1][j-1]; object[i-1][j]; object[i][j-1]; object[i+1][j+1]; ob">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Hash查找和直接遍历查找的对比" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-“矩阵行走问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/09/12/Hash查找和直接遍历查找的对比/" class="article-date">
-  <time datetime="2017-09-12T03:02:58.000Z" itemprop="datePublished">2017-09-12</time>
+    <a href="/2017/09/14/“矩阵行走问题/" class="article-date">
+  <time datetime="2017-09-14T12:13:22.000Z" itemprop="datePublished">2017-09-14</time>
 </a>
     
   </div>
@@ -74,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hash查找和直接遍历查找的对比
+      “矩阵行走问题
     </h1>
   
 
@@ -82,11 +85,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="矩阵行走问题的几种处理-（随时更新）"><a href="#矩阵行走问题的几种处理-（随时更新）" class="headerlink" title="矩阵行走问题的几种处理 #（随时更新）"></a>矩阵行走问题的几种处理 #（随时更新）</h1><p>在做leetcode的时候发现经常会涉及到矩阵的运算，通常处理的对象是这样的  </p>
+<pre><code>vector&lt;vector&lt;int&gt;&gt; object;  
+</code></pre><p>在处理矩阵问题的时候，通常需要遍历周围一圈，分别是  </p>
+<pre><code>object[i-1][j-1];
+object[i-1][j];
+object[i][j-1];
+object[i+1][j+1];
+object[i][j+1];
+object[i+1][j];
+object[i-1][j+1];
+object[i+1][j-1];
+</code></pre><p>需要考虑的问题是0&lt;i&lt;object.size()  0&lt;j&lt;object.size(),一般分别做判断，做8次if判断可以解决这个问题，有些问题可以通过这样的方式解决，比如leetcode 661 image smoother可以用这样的方式解决，但是 675 Cut Off Trees for Golf Event 无法通过这样的方式解决，可以通过这样的方式判断减少代码量  </p>
+<pre><code>vector&lt;vector&lt;int&gt;&gt; dir={{-1,-1},{-1,0},{0,-1},{1,1},{0,1},{1,0},{-1,1},{1,-1}};
+for(int i=0;i&lt;dir.size();i++)
+{
+    int nextx=currentx+dir[i][0];
+    int nexty=currenty+dir[i][1];
+    if(nextx&gt;0&amp;&amp;nextx&lt;x.size()&amp;&amp;nexty&gt;0&amp;&amp;nexty&lt;y,size())
+        //做运算
+}
+</code></pre><p>这样比起8个if减少了很多操作    </p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/12/Hash查找和直接遍历查找的对比/" data-id="cj7kh1b630001c0vhfjiz71p6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/14/“矩阵行走问题/" data-id="cj7kh1b5z0000c0vht3gl8gas" class="article-share-link">Share</a>
       
       
     </footer>
@@ -95,19 +119,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/09/14/“矩阵行走问题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          “矩阵行走问题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/31/动态规划和递归的区别/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/12/Hash查找和直接遍历查找的对比/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">动态规划和递归的区别</div>
+      <div class="article-nav-title">Hash查找和直接遍历查找的对比</div>
     </a>
   
 </nav>
